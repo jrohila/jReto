@@ -23,6 +23,7 @@ import de.tum.in.www1.jReto.routing.packets.LinkStatePacket;
 import de.tum.in.www1.jReto.routing.packets.MulticastHandshake;
 import de.tum.in.www1.jReto.routing.packets.RoutedConnectionEstablishedConfirmationPacket;
 import de.tum.in.www1.jReto.util.RepeatedExecutor;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
 * The Router class is responsible for discovering remote peers (represented via the Node class) in the network (both directly and indirectly reachable ones), 
@@ -72,7 +73,7 @@ public class Router {
     /** A map from a node's UUID to the node for all Nodes known to the Router */
 	private Map<UUID, Node> nodes = new HashMap<UUID, Node>();
     /** The set of Nodes that are neighbors of the local peer. */
-	private Set<Node> neighbors = new HashSet<Node>();
+	private Set<Node> neighbors = ConcurrentHashMap.newKeySet(); 
     /** 
     * Forking connections act as a normal underling connection for the local peer, but forward received data to another peer in the background. 
     * This type of connection is used in multicast connections.
